@@ -1,0 +1,15 @@
+**/.git
+**/.github
+**/.vercel
+**/node_modules
+**/vendor
+**/storage/logs/*.log
+src/bootstrap/cache/*.php
+**/.env
+**/.env.*
+!src/.env.example
+docker_home
+mailtrap_data
+_setup
+compose.yaml
+README.md
