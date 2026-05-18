@@ -24,3 +24,5 @@ services:
         value: database
       - key: RUN_MIGRATIONS
         value: "true"
+      - key: RUN_CORE_SEEDERS
+        value: "true"

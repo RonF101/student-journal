@@ -36,6 +36,7 @@ SESSION_DRIVER=database
 CACHE_STORE=database
 QUEUE_CONNECTION=database
 RUN_MIGRATIONS=true
+RUN_CORE_SEEDERS=true
 ```
 
 ## Render

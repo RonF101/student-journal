@@ -1,90 +1,39 @@
-import { Paper, BottomNavigation, BottomNavigationAction, Zoom, Box } from '@mui/material';
-import {
-  AutoAwesome,
-  BookmarkBorder,
-  History,
-  Settings,
-  MenuBook,
-} from '@mui/icons-material';
-import { SIDEBAR_ITEMS } from './Student/DashboardSections/dashboardTheme';
-import { useTheme as useGlobalTheme } from '@/Contexts/ThemeContext';
+import { Head, Link, usePage } from '@inertiajs/react';
 
-const iconMap = {
-  feed: <AutoAwesome />,
-  saved: <BookmarkBorder />,
-  history: <History />,
-  settings: <Settings />,
-};
-
-export default function MobileBottomNav({ activeNav, onSelect }) {
-  const { colors } = useGlobalTheme();
+export default function Dashboard() {
+  const { auth } = usePage().props;
 
   return (
-    <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-      <Zoom in timeout={300}>
-        <Paper
-          elevation={24}
-          sx={{
-            position: 'fixed',
-            bottom: 16,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1300,
-            borderRadius: '32px',
-            width: 'auto',
-            minWidth: 320,
-            maxWidth: '90%',
-            backdropFilter: 'blur(10px)',
-            backgroundColor: `${colors.paper}e6`,
-            border: `1px solid ${colors.border}`,
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-            transition: 'all 300ms ease',
-            '&:hover': {
-              boxShadow: '0 12px 48px rgba(0, 0, 0, 0.16)',
-            },
-          }}
-        >
-          <BottomNavigation
-            showLabels
-            value={activeNav}
-            onChange={(event, value) => onSelect?.(value)}
-            sx={{
-              height: 56,
-              bgcolor: 'transparent',
-              '& .MuiBottomNavigationAction-root': {
-                minWidth: 64,
-                px: 1.5,
-                color: colors.byline,
-                transition: 'all 200ms ease',
-                '&.Mui-selected': {
-                  color: colors.accent,
-                  '& .MuiBottomNavigationAction-label': {
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                  },
-                },
-                '& .MuiBottomNavigationAction-label': {
-                  fontSize: '0.7rem',
-                  transition: 'all 200ms ease',
-                },
-                '&:hover': {
-                  color: colors.newsprint,
-                  transform: 'translateY(-2px)',
-                },
-              },
-            }}
-          >
-            {SIDEBAR_ITEMS.map((item) => (
-              <BottomNavigationAction
-                key={item.key}
-                value={item.key}
-                label={item.label}
-                icon={iconMap[item.key] || <MenuBook />}
-              />
-            ))}
-          </BottomNavigation>
-        </Paper>
-      </Zoom>
-    </Box>
+    <>
+      <Head title="Dashboard" />
+      <main className="min-h-screen bg-[#f5efe4] px-6 py-12 text-[#191714]">
+        <section className="mx-auto max-w-3xl rounded-lg border border-[#d8cbb8] bg-white p-8 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-[#9b6a2f]">
+            Student Journal
+          </p>
+          <h1 className="mt-3 text-3xl font-bold">Welcome{auth?.user?.name ? `, ${auth.user.name}` : ''}</h1>
+          <p className="mt-4 text-base leading-7 text-[#5f5a51]">
+            Your account is active, but a role-specific dashboard was not found yet. Try opening the
+            student dashboard, or sign out and sign back in after deployment finishes.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={route('student.dashboard')}
+              className="rounded-md bg-[#191714] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#3a332a]"
+            >
+              Open Student Dashboard
+            </Link>
+            <Link
+              href={route('logout')}
+              method="post"
+              as="button"
+              className="rounded-md border border-[#c7b8a2] px-5 py-3 text-sm font-semibold text-[#191714] transition hover:bg-[#efe4d2]"
+            >
+              Sign Out
+            </Link>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }

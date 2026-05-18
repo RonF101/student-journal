@@ -93,6 +93,16 @@ Route::get('/dashboard', function () {
         return redirect()->route('student.dashboard');
     }
 
+    if (
+        $user
+        && Schema::hasTable('roles')
+        && Role::query()->where('name', 'student')->where('guard_name', 'web')->exists()
+    ) {
+        $user->assignRole('student');
+
+        return redirect()->route('student.dashboard');
+    }
+
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -114,5 +124,4 @@ require __DIR__.'/writer.php';
 require __DIR__.'/editor.php';
 require __DIR__.'/student.php';
 require __DIR__.'/admin.php';
-
 
