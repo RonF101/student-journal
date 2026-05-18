@@ -5,11 +5,11 @@ APP_DIR=/var/www/html
 APP_PORT="${PORT:-8080}"
 
 cat > /etc/apache2/ports.conf <<EOF
-Listen ${APP_PORT}
+Listen 0.0.0.0:${APP_PORT}
 EOF
 
 cat > /etc/apache2/sites-available/000-default.conf <<EOF
-<VirtualHost *:${APP_PORT}>
+<VirtualHost 0.0.0.0:${APP_PORT}>
     ServerAdmin webmaster@localhost
     DocumentRoot ${APP_DIR}/public
 
