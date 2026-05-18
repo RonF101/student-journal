@@ -41,7 +41,7 @@ if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
 fi
 
 if [ "${RUN_CORE_SEEDERS:-true}" = "true" ]; then
-    php artisan db:seed --class='Database\\Seeders\\CoreProductionSeeder' --force
+    php artisan db:seed --class=CoreProductionSeeder --force
 fi
 
 php artisan config:cache
